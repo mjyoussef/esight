@@ -3,15 +3,8 @@ import numpy as np
 
 class Pixel:
     "stores the difference in pixel brightness"
-    highlighters = {
-        "green" : [0, 128, 0],
-        "yellow": [255, 255, 0],
-        "orange": [255, 165, 0],
-        "red": [255, 0, 0]
-    }
 
     def __init__(self, b1, b2):
-        self.brightness = b1
         self.contrast = b1 - b2
         self.seen = False
 
