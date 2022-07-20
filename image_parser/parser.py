@@ -1,5 +1,6 @@
 from PIL import Image
 import numpy as np
+import highlighter as hlighter
 
 def to_array(file):
     img = Image.open(file)
@@ -32,15 +33,12 @@ class Parser:
                 if (not self.visited[i][j] and contrast(self.image[i][j], self.base[i][j]) >= self.threshold):
                     temp = createEmptyMap(len(self.image), len(self.image[0]), 0)
                     self.search(i, j, temp)
-
-                    # find a convex hull over the border regions in temp
-                    # update the image using the convex hull outline in temp
-
+                    hlighter.highlight(self.image, temp, self.border_color)
 
     def search(self, row, column, map):
-        if map[row][column] == 0:
+        if (not self.visited[row][column]):
             if contrast(self.image[row][column], self.base[row][column]) >= self.threshold:
-                map[row][column] = 1
+                self.visited[row][column] = True
                 if row > 0:
                     self.search(row - 1, column, map)
                 if row < len(self.image) - 1:
@@ -49,3 +47,5 @@ class Parser:
                     self.search(row, column - 1, map)
                 if column < len(self.image[0]) - 1:
                     self.search(row, column + 1, map)
+            else:
+                map[row][column] = 1
