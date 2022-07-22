@@ -1,1 +1,1 @@
-# esight
+# EcoSight
