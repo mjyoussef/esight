@@ -1,6 +1,6 @@
 def highlight(image, temp, color):
     min = len(temp[0])
-    max = 0
+    max = -1
 
     nw = len(temp[0])
     sw = -1
@@ -56,3 +56,4 @@ def highlight(image, temp, color):
         image[row][min] = color
     for row in range(ne, se+1):
         image[row][max] = color
+
